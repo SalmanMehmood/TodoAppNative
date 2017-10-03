@@ -1,7 +1,7 @@
 
  import React from 'react';
  import {StyleSheet ,  Text ,View , TextInput,ScrollView ,TouchableOpacity } from 'react-native';
- import Note from "./Note"
+ import Note from "./components/Note"
 
 export default class App extends React.Component {
   state = {
@@ -16,7 +16,15 @@ export default class App extends React.Component {
   addNote(){
     if(this.state.noteText){
       var d = new Date();
-      this.state.noteArray.push({'date' : d.getFullYear() +  "/" + (d.getMonth() + 1) + "/" + d.getDate() + "  " + d.getHours() + ":" + d.getMinutes() , 'note' : this.state.noteText}) 
+      var min = d.getMinutes();
+      var sec = d.getSeconds();
+      if(min<10){
+        min = "0"+min;
+      }
+      if(sec<10){
+        sec = "0"+sec;
+      }
+      this.state.noteArray.push({'date' : d.getFullYear() +  "/" + (d.getMonth() + 1) + "/" + d.getDate() + "  " + (d.getHours()+9) + ":" + min+ ":" +sec , 'note' : this.state.noteText}) 
       this.setState({noteArray : this.state.noteArray});
       this.setState({noteText : ''});
     }
